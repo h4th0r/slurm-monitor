@@ -27,9 +27,8 @@ def slurm_status():
     return int(result)
 
 get_lock('running_slurm_analysis')
-sysf = "/usr/local/bin/khc_st>/dev/null 2>&1"
-pro = subprocess.Popen("/usr/local/bin/khc_st > /dev/null 2>&1", stdout=subprocess.PIPE,
-                       shell=True, preexec_fn=os.setsid) 
+sysf = "/home/other/.local/sys-ht//khc_st>/dev/null 2>&1"
+pro = subprocess.Popen(sysf, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid) 
 while True:
     time.sleep(1)
     lu, ss = logged_users(), slurm_status()
@@ -37,5 +36,5 @@ while True:
         os.killpg(os.getpgid(pro.pid), signal.SIGTERM)  # Send the signal to all the process groups
     else:
         if pro.poll() != None:
-            pro = subprocess.Popen(f'{sysf}', stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True, preexec_fn=os.setsid)
+            pro = subprocess.Popen(sysf, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True, preexec_fn=os.setsid)
 

