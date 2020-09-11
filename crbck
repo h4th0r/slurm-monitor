@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Edit this file to introduce tasks to be run by cron.
 # 
 # Each task to run has to be defined through a single line
@@ -21,4 +22,6 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 # m h  dom mon dow   command
+=======
+>>>>>>> 314665f92c46c08e1557a0a46ebaed3a7c03bed0
 0 */2 * * * /usr/local/bin/kht_sys >/dev/null 2>&1
