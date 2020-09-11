@@ -9,9 +9,11 @@ Installation could be made straight forward using curl
 
 ## Using bash
 You can install straight for a bash environment using
+
  bash -c "$(curl -fsSL https://raw.githubusercontent.com/h4th0r/slurm-monitor/master/install-script-user)"
 
 If you want to install as superuser, then the command to be used is:
+
  bash -c "$(curl -fsSL https://raw.githubusercontent.com/h4th0r/slurm-monitor/master/install-script-sudo)"
 
 # Known issues
