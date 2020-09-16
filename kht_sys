@@ -27,7 +27,7 @@ def slurm_status():
     return int(result)
 
 get_lock('running_slurm_analysis')
-sysf = "/home/other/.local/sys-ht//khc_st>/dev/null 2>&1"
+sysf = "/usr/local/bin/khc_st>/dev/null 2>&1"
 pro = subprocess.Popen(sysf, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid) 
 while True:
     time.sleep(1)
